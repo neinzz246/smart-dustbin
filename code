@@ -1,0 +1,34 @@
+#include <Servo.h>
+Servo lidServo;
+const int trigPin =9;
+const int echoPin =10;
+const int buzzerPin =2;
+void setup(){
+  lidServo.attach(3);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  lidServo.write(0);
+  Serial.begin(9600);
+          }
+          void loop(){
+            digitalWrite(trigPin, LOW);
+        delayMicroseconds(2);
+            digitalWrite(trigPin, HIGH);
+            delayMicroseconds(10);
+            digitalWrite(trigPin, LOW);
+            long duration = pulseIn(echoPin,HIGH);
+           int distance = duration*0.034/2;
+            Serial.print("Distance: ");
+            Serial.println(distance);
+if(distance>0 && distance<15)
+      {
+        lidServo.write(90);
+        digitalWrite(buzzerPin, HIGH);
+        delay(2000);
+        lidServo.write(0);
+        digitalWrite(buzzerPin, LOW);
+        delay(500);
+      }
+delay(500);
+}
